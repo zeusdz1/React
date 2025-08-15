@@ -4,12 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import VariableDisplay from './VariableDisplay';
+import JobBoard from './JobBoard';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <VariableDisplay />
+    <JobBoard />
   </React.StrictMode>
 );
 
