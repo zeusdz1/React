@@ -5,12 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import VariableDisplay from './VariableDisplay';
 import JobBoard from './JobBoard';
+import StyledButton from './StyledButton';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <JobBoard />
+    <StyledButton />
   </React.StrictMode>
 );
 
