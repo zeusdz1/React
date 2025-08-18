@@ -7,12 +7,13 @@ import VariableDisplay from './VariableDisplay';
 import JobBoard from './JobBoard';
 import StyledButton from './StyledButton';
 import JobCounter from './JobCounter.js';
+import AdvancedJobCounter from './AdvancedJobCounter.js';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <JobCounter />
+    <AdvancedJobCounter/>
   </React.StrictMode>
 );
 
