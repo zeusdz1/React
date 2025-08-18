@@ -1,0 +1,60 @@
+.bot-list-manager {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #f7f9fc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.bot-list-manager h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.bot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.bot-info p {
+  margin: 5px 0;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+/* Status styling */
+.status-running {
+  color: green;
+  font-weight: bold;
+}
+
+.status-stopped {
+  color: red;
+  font-weight: bold;
+}
+
+.status-completed {
+  color: orange;
+  font-weight: bold;
+}

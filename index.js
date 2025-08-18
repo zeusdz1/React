@@ -9,12 +9,12 @@ import StyledButton from './StyledButton';
 import JobCounter from './JobCounter.js';
 import AdvancedJobCounter from './AdvancedJobCounter.js';
 import DynamicForm from './DynamicForm.js';
-
+import BotListManager from './BotListManager.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DynamicForm/>
+    <BotListManager/>
   </React.StrictMode>
 );
 
