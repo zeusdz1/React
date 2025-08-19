@@ -1,25 +1,43 @@
-import React from 'react';
-import ProfileCard from './ProfileCard.js';
+import React, { useState } from 'react';
+import Header from './components/Header';
+import JobList from './components/JobList';
+import Footer from './components/Footer';
 
 const App = () => {
-  const profiles = [
-    {
-      image: "https://example.com/image1.jpg",
-      name: "John Doe",
-      jobTitle: "Frontend Developer",
-      bio: "Passionate about creating user-friendly web applications."
-    },
-    // Add at least 2 more profile objects here
-  ];
+  const [jobs, setJobs] = useState([
+    { id: 1, name: 'Email Extractor', status: 'running' },
+    { id: 2, name: 'Data Analyzer', status: 'completed' },
+    { id: 3, name: 'Report Generator', status: 'running' }
+  ]);
+
+  const [showJobs, setShowJobs] = useState(true);
+
+  // Add a new job (just a sample with random ID/status)
+  const addJob = () => {
+    const newJob = {
+      id: jobs.length + 1,
+      name: `New Job ${jobs.length + 1}`,
+      status: Math.random() > 0.5 ? 'running' : 'completed'
+    };
+    setJobs([...jobs, newJob]);
+  };
 
   return (
     <div className="app">
-      <h1>Team Profiles</h1>
-      <p>Name: John Doe<br></br>
-        jobTitle: Frontend Developer<br></br>
-        Bio: Passionate about creating user-friendly web applications<br></br>
-      </p>
-      {/* Use the map function here to render ProfileCard components */}
+      <Header />
+
+      <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+        <button onClick={() => setShowJobs(!showJobs)}>
+          {showJobs ? 'Hide Jobs' : 'Show Jobs'}
+        </button>
+        <button onClick={addJob} style={{ marginLeft: '10px' }}>
+          Add Job
+        </button>
+      </div>
+
+      {showJobs && <JobList jobs={jobs} />}
+
+      <Footer />
     </div>
   );
 };
