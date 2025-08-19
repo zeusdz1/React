@@ -10,11 +10,12 @@ import JobCounter from './JobCounter.js';
 import AdvancedJobCounter from './AdvancedJobCounter.js';
 import DynamicForm from './DynamicForm.js';
 import BotListManager from './BotListManager.js';
+import DynamicBotManager from './DynamicBotManager.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BotListManager/>
+    <DynamicBotManager/>
   </React.StrictMode>
 );
 
