@@ -1,0 +1,53 @@
+.status-board {
+    display:flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.ticket-info {
+    flex: 1;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    max-width: 200px;
+    transition: transform 0.2s ease;
+}
+
+.ticket-info:hover {
+    transform: scale(1.05);
+}
+
+.ticket-image {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.ticket-details p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.ticket-info.completed {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.ticket-info.in-progress {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+}
+
+.ticket-info.failed {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+}
+
+.ticket-info h3 {
+    margin-top: 8px;
+    font-size: 20px;
+    color: #333;
+}

@@ -11,11 +11,12 @@ import AdvancedJobCounter from './AdvancedJobCounter.js';
 import DynamicForm from './DynamicForm.js';
 import BotListManager from './BotListManager.js';
 import DynamicBotManager from './DynamicBotManager.js';
+import StatusBoard from './components/StatusBoard.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+    <StatusBoard/>
   </React.StrictMode>
 );
 
