@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
 import JobList from './components/JobList';
-import Footer from './components/Footer';
+
 
 const App = () => {
   const [jobs, setJobs] = useState([
@@ -10,35 +9,25 @@ const App = () => {
     { id: 3, name: 'Report Generator', status: 'running' }
   ]);
 
-  const [showJobs, setShowJobs] = useState(true);
+  const handleDeleteJob = (id) => {
+    setJobs(jobs.filter(job => job.id !== id));
+  };
 
-  // Add a new job (just a sample with random ID/status)
-  const addJob = () => {
+  const handleAddJob = () => {
     const newJob = {
-      id: jobs.length + 1,
+      id: Date.now(),
       name: `New Job ${jobs.length + 1}`,
-      status: Math.random() > 0.5 ? 'running' : 'completed'
+      status: 'running'
     };
     setJobs([...jobs, newJob]);
   };
 
   return (
     <div className="app">
-      <Header />
-
-      <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-        <button onClick={() => setShowJobs(!showJobs)}>
-          {showJobs ? 'Hide Jobs' : 'Show Jobs'}
-        </button>
-        <button onClick={addJob} style={{ marginLeft: '10px' }}>
-          Add Job
-        </button>
+      <h1>Job Board</h1>
+      <button onClick={handleAddJob}>Add Job</button>
+      <JobList jobs={jobs} onDeleteJob={handleDeleteJob} />
       </div>
-
-      {showJobs && <JobList jobs={jobs} />}
-
-      <Footer />
-    </div>
   );
 };
 

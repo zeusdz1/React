@@ -1,24 +1,23 @@
 import React from 'react';
 import JobItem from './JobItem';
 
-const JobList = ({ jobs}) => {
+const JobList = ({ jobs, onDeleteJob}) => {
     return (
-        <div style={StyleSheet.list}>
-            {jobs.map((job) => (
-                <JobItem key={job.id} job={job} />
-            ))}
+        <div className="job-list">
+            {jobs.length > 0 ? (
+                jobs.map((job) => (
+                    <JobItem
+                    key={job.id}
+                    job={job}
+                    onDelete={onDeleteJob}
+                    />
+                ))
+            ) : (
+                <p>No jobs available</p>
+            )}
         </div>
     );
 };
 
-const styles ={
-    list: {
-        maxWidth: '600px',
-        margin: '0 auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px'
-    }
-};
 
 export default JobList;
