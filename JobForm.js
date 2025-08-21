@@ -1,4 +1,5 @@
 import React from 'react';
+import './AppForm.css';
 
 const JobForm = () => {
     return (
