@@ -1,37 +1,26 @@
-import React from 'react';
-import './AppForm.css';
+import React, { useState } from 'react';
+import './JobForm.css';
 
-const JobForm = () => {
-    return (
-        <div className="form-header">
-            <form>
-                <input
-                type="text"
-                className="bot-input"
-                placeholder="Enter the job"
-                />
+const JobForm = ({ addNewJob }) => {
+  const [title, setTitle] = useState('');
 
-                <div className="form-details">
-                    <div className="bottom-line">
-                        <button type="button">Read Emails</button>
-                        <button type="button">Web Parsing</button>
-                        <button type="button">Send Emails</button>
-                    </div>
-                </div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addNewJob(title);
+    setTitle('');
+  };
 
-                <select className="job-status">
-                    <option value="start">Start Process</option>
-                    <option value="running">Running</option>
-                    <option value="completed">Completed</option>
-                    <option value="stopped">Stopped</option>
-                </select>
-
-                <button type="submit" className="submit-data">
-                    Add Job
-                </button>
-            </form>
-        </div>
-    );
+  return (
+    <form className="job-form" onSubmit={handleSubmit}>
+      <input 
+        type="text" 
+        placeholder="Enter job title..." 
+        value={title} 
+        onChange={(e) => setTitle(e.target.value)} 
+      />
+      <button type="submit">Add Job</button>
+    </form>
+  );
 };
 
 export default JobForm;

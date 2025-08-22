@@ -1,44 +1,64 @@
 import React, { useState } from 'react';
 import JobColumn from './components/JobColumn';
-import toDoIcon from './images/to-do-icon.png';
-import inProgressIcon from './images/in-progress-icon.png';
-import doneIcon from './images/done-icon.png';
-import './App.css';
+import JobForm from './components/JobForm';
+
+
 
 const App = () => {
-  const [jobs] = useState([
-    { id: 1, title: 'Design homepage', status: 'todo'},
-    { id: 2, title: 'Set up database', stauts: 'in-progress'},
-    { id:3, title: 'Deploy to server', status: 'done'},
-    { id: 4, title: 'Write documentation', status: 'todo'},
-    { id: 5, title: 'Create login system', status: 'in-progress'},
+  const [jobs, setJobs] = useState([
+    { id: 1, title: 'Parse Emails', status: 'Need to Start'},
+    { id: 2, title: 'SAP Extraction', status: 'In Progress'},
+    { id:3, title: 'Generate Report', status: 'Completed'},
   ]);
 
-  const toDoJobs = jobs.filter((job) => job.status === 'todo');
-  const inProgressJobs = jobs.filter((job) => job.status === 'in-progress');
-  const doneJobs = jobs.filter((job) => job.status === 'done');
+  const deleteJob = (id) => {
+    setJobs(jobs.filter(job => job.id !== id));
+  };
+
+  const updateJobStatus = (id, newStatus) => {
+    setJobs (
+      jobs.map(job =>
+        job.id === id ? {...job, status: newStatus } : job
+      )
+    );
+  };
+
+  const addNewJob = (title) => {
+    if (!title.trim()) return;
+    const newJob = {
+      id: Date.now(),
+      title,
+      status: 'Need to Start'
+    };
+    setJobs([...jobs, newJob]);
+  };
+
+  const toDoJobs = jobs.filter(job => job.status === 'Need to Start');
+  const inProgressJobs = jobs.filter(job => job.status === 'In Progress');
+  const completedJobs = jobs.filter(job => job.status === 'Completed');
 
   return (
     <div className="app">
       <h1 className="app-title">Job Manager</h1>
+      <JobForm addNewJob={addNewJob} />
       <div className="job-columns">
         <JobColumn
         title="Need to Start"
-        image={toDoIcon}
-        alt="To-do icon"
+        deleteJob={deleteJob}
+        updateJobStatus={updateJobStatus}
         jobs={toDoJobs}
         />
         <JobColumn
         title="In Progress"
-        image={inProgressIcon}
-        alt="In-progress icon"
+        deleteJob={deleteJob}
+        updateJobStatus={updateJobStatus}
         jobs={inProgressJobs}
         />
         <JobColumn
         title="Completed"
-        image={doneIcon}
-        alt="Done icon"
-        jobs={doneJobs}
+        deleteJob={deleteJob}
+        updateJobStatus={updateJobStatus}
+        jobs={completedJobs}
         />
       </div>
     </div>
