@@ -1,0 +1,20 @@
+.app {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.job-columns {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .job-columns {
+    flex-direction: column;
+  }
+}
