@@ -1,19 +1,20 @@
-import React from 'react';
-import JobItem from './JobItem';
+import React, {useState} from 'react';
 
-const JobList = ({ jobs, onDeleteJob}) => {
+
+const JobList = ({ jobs}) => {
     return (
-        <div className="job-list">
-            {jobs.length > 0 ? (
-                jobs.map((job) => (
-                    <JobItem
-                    key={job.id}
-                    job={job}
-                    onDelete={onDeleteJob}
-                    />
-                ))
+        <div>
+            <h2>Job List</h2>
+            {jobs.length === 0 ? (
+                <p>No jobs added yet.</p>
             ) : (
-                <p>No jobs available</p>
+            <ul>
+                {jobs.map((job, index) => (
+                    <li key={index}>
+                        <strong>{job.title}</strong> - {job.category} ({job.status})
+                    </li>
+                ))}
+            </ul>
             )}
         </div>
     );
