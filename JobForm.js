@@ -1,57 +1,50 @@
 import { useState } from "react";
-import JobList from './JobList';
+
 
 const JobForm = ()  => {
   const [jobDetails, setJobDetails] = useState({
     title: '',
-    category: '',
-    status: 'To Start'
+    status: 'To Start',
+    categories: []
   });
   
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
-  const categories = ['Read Emails', 'Web Parsing', 'Send Emails'];
-  const statuses = ['To Start', 'In Progress', 'Completed'];
+  const categoryOptions = ['Read Emails', 'Web Parsing', 'Send Emails'];
+  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setJobDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    setJobDetails(prev => ({...prev, [name]: value}));
   };
 
-  const resetForm = () => {
-    setJobDetails({
-      title: '',
-      category: '',
-      status: 'To Start'
+  const handleCategoryToggle = (category) => {
+    setJobDetails(prev => {
+      if (prev.categories.includes(category)) {
+        return {...prev, categories: prev.categories.filter(c => c !== category) };
+      } else {
+        return {...prev, categories: [...prev.categories, category] };
+      }
     });
+  };
+
+  const handleClearCategories = () => {
+    setJobDetails(prev => ({ ...prev, categories: [] }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!jobDetails.title || !jobDetails.category || !jobDetails.status) {
-      setError('Please fill in all fields.');
-      setSuccessMessage('');
+    if (jobDetails.categories.length === 0) {
+      setError('Please select at least one category');
       return;
     }
-    
-    setJobs((prevJobs) => [...prevJobs, jobDetails]);
-
-    console.log('Job Added:', jobDetails);
-
-    resetForm();
     setError('');
-    setSuccessMessage('Job added successfully!');
+    console.log('Submitted job details:', jobDetails);
+    setJobDetails({ title: '', status: 'To Start', categories: [] });
   };
+    
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '300px' }}>
         <input
         type="text"
         name="title"
@@ -61,40 +54,56 @@ const JobForm = ()  => {
         />
 
         <select
-        name="category"
-        value={jobDetails.category}
-        onChange={handleInputChange}
-        >
-
-        <option value="">Select a category</option>
-        {categories.map(category => (
-          <option key={category} value={category}>{category}</option>
-        ))}
-
-        </select>
-
-        <select
         name="status"
         value={jobDetails.status}
         onChange={handleInputChange}
         >
-         {statuses.map(status => (
-          <option key={status} value={status}>{status}</option>
-         ))} 
+
+        <option value="To Start">To Start</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
         </select>
 
-        <button
-        type="submit"
-        disabled={!jobDetails.title || !jobDetails.category || !jobDetails.status}
-        >
-          Add Job
-        </button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+        <div Style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        {categoryOptions.map(category => {
+          const isSelected = jobDetails.categories.includes(category);
+          return (
+            <button
+            key={category}
+            type="button"
+            onClick={() => handleCategoryToggle(category)}
+            style={{
+              padding: '5px 10px',
+              borderRadius: '5px',
+              border: '1px solid #ccc',
+              backgroundColor: isSelected ? '#4caf50' : '#f0f0f0',
+              color: isSelected ? 'white' : 'black',
+              cursor: 'pointer'
+            }}
+          >
+            {category}
+          </button>
+          );
+        })}
+          </div>
+        
+          <div>
+          <strong>Selected Categories:</strong>
+          {jobDetails.categories.length > 0 ? (
+            <ul>
+            {jobDetails.categories.map(c=> <li key={c}>{c}</li>)}
+            </ul>
+          ) : (
+            <p>None</p>
+          )}
+          </div>
 
-      <JobList jobs={jobs} />
-    </div>
+          <button type="button" onClick={handleClearCategories}>Clear Categories</button>
+
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+
+          <button type="submit">Add Job</button>
+      </form>
   );
 };
 
