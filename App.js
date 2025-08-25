@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import JobColumn from './components/JobColumn';
 import JobForm from './components/JobForm';
+import CategorySelector from './components/CategorySelector';
 
 
 
