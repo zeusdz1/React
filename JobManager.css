@@ -1,0 +1,76 @@
+.job-manager {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.job-form {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.job-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.job-form input[type="text"] {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+}
+
+.job-form select {
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.job-form button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.job-columns {
+    display: flex;
+    gap: 20px;
+}
+
+.job-column {
+    flex: 1;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.job-card {
+    background: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.01);
+}
+
+.categories {
+    margin-top: 5px;
+}
+
+.category {
+    display: inline-block;
+    background: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-right: 4px;
+    font-size: 0.85rem;
+}
+
+.empty {
+    color: #888;
+    font-style: italic;
+}

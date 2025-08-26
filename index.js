@@ -12,11 +12,13 @@ import DynamicForm from './DynamicForm.js';
 import BotListManager from './BotListManager.js';
 import DynamicBotManager from './DynamicBotManager.js';
 import StatusBoard from './components/StatusBoard.js';
+import CategorySelector from './components/CategorySelector.js';
+import JobManager from './components/JobManager.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+    <JobManager/>
   </React.StrictMode>
 );
 
