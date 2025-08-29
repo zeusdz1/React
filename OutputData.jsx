@@ -1,16 +1,16 @@
 import React from 'react';
-import { calculateInvestmentResults } from '../util/investments';
+import { calculateInvestmentResults, formatter } from '../util/investments';
 
 const OutputData = ({ inputValue}) => {
-    const resultData = calculateInvestmentResults({
-        initialInvestment: +inputValue.initialInvestment,
-        annualInvestment: +inputValue.annualInvestment,
-        expectedReturn: +inputValue.expectedReturn,
-        duration: +inputValue.duration,
-    });
+    if (inputValue.duration <= 0) {
+        return <p>Please enter a duration greater than zero.</p>;
+    }
+    
+
+    const resultData = calculateInvestmentResults(inputValue);
 
     return (
-        <table>
+        <table id="result">
             <thead>
                 <tr>
                     <th>Year</th>
@@ -21,15 +21,24 @@ const OutputData = ({ inputValue}) => {
                 </tr>
             </thead>
             <tbody>
-                {resultData.map((yearData, index) => (
-                    <tr key={index}>
+                {resultData.map((yearData) => {
+                   const totalInterest =
+                   yearData.valueEndOfYear -
+                   yearData.annualInvestment * yearData.year -
+                   inputValue.initialInvestment;
+
+                   const totalAmountInvested = yearData.valueEndOfYear - totalInterest;
+
+                   return (
+                    <tr key={yearData.year}>
                         <td>{yearData.year}</td>
-                        <td>{yearData.investmentValue.toFixed(2)}</td>
-                        <td>{yearData.interest.toFixed(2)}</td>
-                        <td>{yearData.totalInterest.toFixed(2)}</td>
-                        <td>{yearData.investedCapital.toFixed(2)}</td>
+                        <td>{formatter.format(yearData.valueEndOfYear)}</td>
+                        <td>{formatter.format(yearData.interest)}</td>
+                        <td>{formatter.format(totalInterest)}</td>
+                        <td>{formatter.format(totalAmountInvested)}</td>
                     </tr>
-                ))}
+                   );
+                 })}
             </tbody>
         </table>
     );
