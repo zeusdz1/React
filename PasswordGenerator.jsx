@@ -1,89 +1,89 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 const PasswordGenerator = () => {
   const [length, setLength] = useState(10);
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [characterAllowed, setCharacterAllowed] = useState(false);
   const [password, setPassword] = useState("");
-  const [btnFlash, setBtnFlash] = useState(false);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const passwordGenerator = useCallback(() => {
-    if (length < 6) {
-      alert("Password length must be at least 6.");
+    setError('');
+    let pass = '';
+    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+    if (numberAllowed) str += '0123456789';
+    if (characterAllowed) str += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+    if (!str) {
+      setError('Please select at least one character type.');
+      setPassword('');
       return;
     }
 
-    const lower = "abcdefghijklmnopqrstuvwxyz";
-    const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const numbers = "0123456789";
-    const special = "!@#$%^&*()_+-=[]{}|;:,.<>?";
-
-    let charset = lower + upper;
-    let guaranteed = "";
-
-    if (numberAllowed) {
-      charset += numbers;
-      guaranteed += numbers[Math.floor(Math.random() * numbers.length)];
-    }
-    if (characterAllowed) {
-      charset += special;
-      guaranteed += special[Math.floor(Math.random() * special.length)];
+    if (length < 6 || length > 100) {
+      setError('Password length must be between 6 and 100.');
+      setPassword('');
+      return;
     }
 
-    let newPassword = guaranteed;
-    for (let i = guaranteed.length; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      newPassword += charset[randomIndex];
+    for (let i = 0; i < length; i++) {
+      const charIndex = Math.floor(Math.random() * str.length);
+      pass += str.charAt(charIndex);
     }
 
-   
-    newPassword = newPassword.split("").sort(() => 0.5 - Math.random()).join("");
+    setPassword(pass);
+    }, [length, numberAllowed, characterAllowed]);
 
-    setPassword(newPassword);
+    const copyPasswordToClipboard = () => {
+      if (!password) return;
+      navigator.clipboard.writeText(password);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    };
 
-  
-    setBtnFlash(true);
-    setTimeout(() => setBtnFlash(false), 300);
-  }, [length, numberAllowed, characterAllowed]);
+    useEffect(() => {
+      passwordGenerator();
+    }, [length, numberAllowed, characterAllowed, passwordGenerator]);
+
 
   return (
-    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500">
-      <h1 className="text-white text-center my-3 text-xl font-bold">
+    <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-6 py-5 my-8 bg-gray-800 text-orange-500">
+      <h1 className="text-white text-center text-xl font-semibold mb-4">
         Password Generator
       </h1>
 
     
       <div className="flex shadow rounded-lg overflow-hidden mb-4">
-        <input
+       <input
           type="text"
           value={password}
-          className="outline-none w-full py-1 px-3"
+          className="outline-none w-full py-2 px-3 text-gray-900"
           placeholder="Password"
           readOnly
         />
         <button
-          className={`outline-none px-3 py-0.5 shrink-0 transition-colors ${
-            btnFlash ? "bg-green-600" : "bg-blue-700"
-          } text-white`}
-          onClick={passwordGenerator}
+          className="outline-none bg-blue-700 text-white px-4 py-2 shrink-0 hover:bg-blue-600 transition"
+          onClick={copyPasswordToClipboard}
         >
-          Generate
+          {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
 
       
       <div className="flex flex-col gap-y-3 text-sm">
       
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-3">
           <input
             type="range"
             min={6}
             max={100}
             value={length}
-            className="cursor-pointer"
+            className="cursor-pointer w-full"
             onChange={(e) => setLength(Number(e.target.value))}
           />
-          <label>Length: {length}</label>
+          <label className="text-white">Length: {length}</label>
         </div>
 
        
@@ -94,7 +94,7 @@ const PasswordGenerator = () => {
             id="numberInput"
             onChange={() => setNumberAllowed((prev) => !prev)}
           />
-          <label htmlFor="numberInput">Include Numbers</label>
+          <label htmlFor="numberInput" className="text-white">Include Numbers</label>
         </div>
 
         
@@ -105,13 +105,9 @@ const PasswordGenerator = () => {
             id="characterInput"
             onChange={() => setCharacterAllowed((prev) => !prev)}
           />
-          <label htmlFor="characterInput">Include Special Characters</label>
+          <label htmlFor="characterInput" className="text-white">Include Special Characters</label>
         </div>
-
-       
-        <p className="text-gray-400 text-xs mt-2">
-          Tip: Longer passwords with numbers + special characters are stronger 🔒
-        </p>
+        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
       </div>
     </div>
   );
