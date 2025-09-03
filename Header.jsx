@@ -1,13 +1,19 @@
-import React from 'react';
-import logo from '../assets/investment-calculator-logo.png';
+import React from "react";
+import "./Header.css";
 
-const Header = () => {
-  return (
-    <header id="header">
-      <img src={logo} alt="Investment Calculator Logo" />
-      <h1>Investment Calculator</h1>
-    </header>
-  );
+function Header() {
+    return (
+        <header className="header">
+            <h1 className="logo">Moview Review App</h1>
+            <nav>
+                <ul className="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Reviews</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </header>
+    );
 };
 
 export default Header;

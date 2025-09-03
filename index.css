@@ -1,3 +1,35 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #f8F9fa;
+  color: #333;
+}
+
+.navbar {
+  background-color: #222;
+  padding: 1rem;
+}
+.nav-content {
+  color: white;
+  font-weight: bold;
+}
+
+.main-content {
+  padding: 2rem;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./assets/fonts/Montserrat.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
