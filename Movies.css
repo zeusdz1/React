@@ -1,0 +1,33 @@
+.movieheader{
+    padding: 10px 30px;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.movie_2head{
+    color: white;
+    font-size: 27px;
+}
+
+.movie_filter{
+    list-style: none;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.movie_filter_item{
+    padding: 7px 17px;
+    cursor: pointer;
+    color: black;
+}
+
+.movie_sorting{
+    border: none;
+    outline: none;
+    font-size: 17px;
+    font-family: inherit;
+    height: 30px;
+    padding: 0 15px;
+    margin: 0 12px;
+}

@@ -33,3 +33,8 @@ body {
 body {
   font-family: "Montserrat", sans-serif;
 }
+
+.center_ele{
+  display: flex;
+  align-items: center;
+}
