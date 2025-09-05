@@ -22,6 +22,10 @@
     color: black;
 }
 
+.movie_filter_item.active{
+    border-bottom: 1px solid #c4c1be;
+}
+
 .movie_sorting{
     border: none;
     outline: none;
